@@ -20,19 +20,24 @@
 
                 <p:menubar>
                     <p:menuitem class="negrita" value="AlphaLabs" />
-                     <p:divider layout="vertical"/>
+                    <p:divider layout="vertical"/>
                     <p:menuitem value="Inicio" icon="pi pi-fw pi-user"/>
-                    
+
                     <p:menuitem value="Informacion" icon="pi pi-fw pi-calendar"/>
-                    
+
                     <p:menuitem value="contacto" icon="pi pi-fw pi-calendar-plus"/>
 
                     <p:divider layout="vertical"/>
-                    <p:menuitem value="Iniciar Sesión" icon="pi pi-user"/>                                           
+                    
+                    <f:facet name="options">
+                        <h:commandLink value="#{iniciarsesion.jsp}" action="iniciarsesion.jsp">                            
+                            <p:button value="Iniciar Sesión" icon="pi pi-user"/>   
+                        </h:commandLink>
+                    </f:facet>
+
                 </p:menubar>
             </h:form>
-        </div>
-        
-        
+        </div> 
+
     </h:body>
 </html>

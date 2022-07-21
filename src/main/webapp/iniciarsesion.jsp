@@ -4,6 +4,7 @@
     Author     : Eduardo
 --%>
 
+<%@page import="modelo.Persona"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -51,21 +52,20 @@
                 -o-background-size: cover;
                 background-size: cover;                
             }
-            
+
             .blanquito{
                 background-color: whitesmoke;
                 border-radius: 10px;
-                
+
             }
-            
+
         </style>
 
     </head>
     <body class="align-items-center contenedor">
         <main class="form-signin w-100 m-auto blanquito">
             <h1 class="text-center">Iniciar Sesión</h1>
-            <form name="login" action="index.xhtml" method="POST" >
-                
+            <form>                
                 <div class="form-floating">
                     <input type="text" class="form-control" id="user" name="user" value="" size="50"/>
                     <label for="user">Usuario: </label>
@@ -77,8 +77,22 @@
                 </div>
                 <div>
                     <input class=" w-100 btn btn-success" type="submit" value="Inicio de sesión" name="send" />
-                </div>                
+                    <%--<jsp:useBean id="usuario" scope="page" class="modelo.Persona"/>--%>
+                    <%
+                        Persona unap;
+                        unap = new Persona();
+                        if(request.getParameter("send") != ""){
+                            //String usuario = request.getParameter("user");
+                            //String contra = request.getParameter("password");
+                            if(unap.login(request.getParameter("user"), request.getParameter("password")) == "Usuario correcto"){
+                                response.sendRedirect("index.xhtml");
+                            }else{
+                                response.sendRedirect("iniciarsesion.jsp");
+                            }
+                        }
+                    %>                    
+                </div>
             </form>
-        </main>        
+        </main>
     </body>
 </html>
