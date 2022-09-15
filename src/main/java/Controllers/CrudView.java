@@ -5,12 +5,17 @@
  */
 package Controllers;
 
+import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import static java.lang.ProcessHandle.current;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -18,11 +23,18 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import modelo.Conexion;
 import modelo.Examenp;
 import modelo.Personap;
 import modelo.categoriaExamen;
 import modelo.ordenes;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 //import modelo.categoriaExa;
 import org.primefaces.PrimeFaces;
 
@@ -832,5 +844,30 @@ public class CrudView implements Serializable {
 //        }
 //        return msg;
 //  llave de
+    }
+    
+    public void exportaPDF(ActionEvent actionEvent) throws JRException, IOException {
+        try {
+            System.out.println("Me dañe aqui");
+            Map<String, Object> parametros = new HashMap<String, Object>();
+            parametros.put("nombres", "Admin");
+
+            File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reporteusuario.jasper"));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parametros, new JRBeanCollectionDataSource(this.getPersonas()));
+
+            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            response.addHeader("Content.disposition", "attachment; filename=jsfReporte.pdf");
+            ServletOutputStream stream = response.getOutputStream();
+
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+
+            stream.flush();
+            stream.close();
+            FacesContext.getCurrentInstance().responseComplete();
+        } catch (Exception s) {
+            System.out.println(s.toString());
+            
+        }
+
     }
 }

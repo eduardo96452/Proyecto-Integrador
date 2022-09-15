@@ -79,6 +79,13 @@
                 <h1 class="display-2 text-center"><strong>AlphaLabs</strong></h1>
                 <br/>
                 <br/>
+                <h:form>
+                    <h:commandButton value="Informe de los usuarios" actionListener="#{crudView.exportaPDF()}"/>
+                    <!--<h:commandLink>
+                        <h:graphicImage url="Imagenes/pdf.png"/>
+                        <p:dataExporter type="pdf" target="dt-usuarios" fileName="Users"/>
+                    </h:commandLink>-->
+                </h:form>
                 <br/>
             </div>
             <div class=" p-2 row g-4 blanquito">

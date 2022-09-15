@@ -70,6 +70,13 @@
                                        icon="pi pi-exclamation-triangle" />
                         </p:commandButton>
                     </p:toolbarGroup>
+                    <p:toolbarGroup align="right">
+                        <h:commandButton value="Informe de los usuarios" actionListener="#{crudView.exportaPDF()}"/>
+                        <!--<h:commandLink>
+                            <h:graphicImage url="Imagenes/pdf.png"/>
+                            <p:dataExporter type="pdf" target="dt-usuarios" fileName="Users"/>
+                        </h:commandLink>-->
+                    </p:toolbarGroup>
                 </p:toolbar>
 
                 <p:dataTable id="dt-products" widgetVar="dtProducts" var="person" value="#{crudView.personas}"
