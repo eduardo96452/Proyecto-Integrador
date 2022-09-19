@@ -13,6 +13,9 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 
     </h:head>
+    <f:metadata>
+        <f:viewParam name="nombre" value="#{crudView.nombres}" />
+    </f:metadata>
     <h:body>
         <div>           
             <h:form>
@@ -27,7 +30,7 @@
                     
                     <p:divider layout="vertical"/>
 
-                    <p:submenu label="nombre" icon="pi pi-user">
+                    <p:submenu label="#{crudView.nombres}" icon="pi pi-user">
                         <p:menuitem value="Perfil" icon="pi pi-user-edit"/>
                     </p:submenu>
 

@@ -211,10 +211,11 @@ public class Personap {
         return ok;
     }
 
-    public String loginDos() throws Exception {
+    public void loginDos() throws Exception {
         String pantalla = "iniciarSesion";
-        String sentence="SELECT cedula, clave, tipousuario FROM public.persona where cedula= '"+usuario+"' and clave= '"+contraseña+"' ;";
+        String sentence="SELECT cedula, clave, nombres, tipousuario FROM public.persona where cedula= '"+usuario+"' and clave= '"+contraseña+"' ;";
         String tipoUsuario = "";
+        String nombre="";
         Conexion unaConexion;
         unaConexion = new Conexion();
         unaConexion.abrirConexion();
@@ -226,9 +227,12 @@ public class Personap {
                 System.out.println(rs.getString("clave"));
                 System.out.println(rs.getString("tipousuario"));
                 tipoUsuario = rs.getString("tipousuario");
+                nombre = rs.getString("nombres");
             }
             if (tipoUsuario.equals("Laboratorista")) {
-                pantalla = "pantallaLaboratorista";
+                pantalla = "pantallaLaboratorista.xhtml?nombre="+nombre;
+                FacesContext.getCurrentInstance().getExternalContext().redirect("pantallaLaboratorista.xhtml?nombre="+nombre);
+                System.out.println(pantalla);
             } else {
                 if (tipoUsuario.equals("Paciente")) {
                     pantalla = "Historialpacient";
@@ -243,7 +247,6 @@ public class Personap {
         if (pantalla.equals("iniciarSesion")) {
             PrimeFaces.current().executeScript("location.reload()");
         }
-        return pantalla;
     }
 
     public boolean insert(Personap per) throws Exception {
